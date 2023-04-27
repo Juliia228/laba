@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class BruteForce{
-    public static Scanner sc = new Scanner(System.in);
+    private static Scanner sc = new Scanner(System.in);
     private Rect[] array;
 
     private final int n;
@@ -11,18 +11,7 @@ public class BruteForce{
         this.m = m;
     }
 
-    static public class Rect {
-        private final int x1;
-        private final int y1;
-        private final int x2;
-        private final int y2;
-
-        Rect(int x1, int y1, int x2, int y2) {
-            this.x1 = x1;
-            this.y1 = y1;
-            this.x2 = x2;
-            this.y2 = y2;
-        }
+    record Rect(int x1, int y1, int x2, int y2) {
     }
 
     BruteForce(){
@@ -55,11 +44,12 @@ public class BruteForce{
             System.out.println("Incorrect data");
         }
     }
+
     int Check(int x, int y){
         int count = 0;
         if (this.n > 0) {
             for (Rect rectangle : this.array) {
-                if (rectangle.x1 <= x && rectangle.x2 >= x && rectangle.y1 <= y && rectangle.y2 >= y) {
+                if (rectangle.x1 <= x && rectangle.x2 > x && rectangle.y1 <= y && rectangle.y2 > y) {
                     count++;
                 }
             }
