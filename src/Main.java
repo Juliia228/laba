@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) {
         //the first algorithm - brute-force
@@ -5,9 +7,13 @@ public class Main {
 //        solution.GetPoints();
 //        solution.CheckPoints();
         //the second algorithm - map on compressed coordinates
-        WithMap solution = new WithMap();
-        solution.CoordinateCompression();
-        solution.BuildMap();
-        solution.CheckPoints();
+//        WithMap solution = new WithMap();
+//        solution.CoordinateCompression();
+//        solution.BuildMap();
+//        solution.CheckPoints();
+        //the third algorithm - persistent segment tree on compressed coordinates
+//        PersistentSegmentTree solution = new PersistentSegmentTree();
+//        solution.CoordinateCompression();
+//        solution.CheckPoints();
     }
 }
