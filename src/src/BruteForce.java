@@ -1,47 +1,48 @@
+package src;
+
 import java.util.Scanner;
+import src.Main.Rect;
 
 public class BruteForce{
     private static Scanner sc = new Scanner(System.in);
     private Rect[] array;
 
-    private final int n;
+    private int n;
 
     private int m;
     void setM(int m){
         this.m = m;
     }
 
-    record Rect(int x1, int y1, int x2, int y2) {
-    }
-
-    BruteForce(){
-        this.n = sc.nextInt();
-        if (n > 0) {
-            this.array = new Rect[n];
-        }
-    }
-
-    void GetPoints(){
-        try {
+    void GetPoints(Rect[] rects){
+        if (rects != null){ // for tests
+            this.n = rects.length;
+            this.array = rects;
+        } else { // for contest
+            this.n = sc.nextInt();
+            if (this.n > 0) {
+                this.array = new Rect[n];
+            }
             for (int i = 0; i < this.n; i++) {
                 Rect rectangle = new Rect(sc.nextInt(), sc.nextInt(), sc.nextInt(), sc.nextInt());
                 this.array[i] = rectangle;
             }
-        } catch (Exception e) {
-            System.out.println("Incorrect data");
+            setM(sc.nextInt());
         }
-        setM(sc.nextInt());
     }
 
-    void CheckPoints(){
-        try {
+    void CheckPoints(int[] points){
+        if (points != null){ // for tests
+            setM(points.length / 2);
+            for (int i = 0; i < (this.m * 2) - 1; i += 2) {
+                System.out.print(Check(points[i], points[i+1]) + " ");
+            }
+        } else { // for contest
             for (int i = 0; i < this.m; i++) {
                 int x = sc.nextInt();
                 int y = sc.nextInt();
                 System.out.print(Check(x, y) + " ");
             }
-        } catch (Exception e) {
-            System.out.println("Incorrect data");
         }
     }
 

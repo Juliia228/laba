@@ -1,4 +1,7 @@
+package src;
+
 import java.util.*;
+import src.Main.Rect;
 
 public class PersistentSegmentTree{
     public Scanner sc = new Scanner(System.in);
@@ -61,14 +64,22 @@ public class PersistentSegmentTree{
         }
     }
 
-    record Rect(int x1, int y1, int x2, int y2) {
-    }
-
-    void CoordinateCompression(){
-        int n = sc.nextInt();
-        this.array = new Rect[n];
-        this.trees = new Node[n*2];
-        try {
+    void CoordinateCompression(Rect[] rects){
+        int n;
+        if (rects != null){ // for tests
+            n = rects.length;
+            this.array = rects;
+            this.trees = new Node[n * 2];
+            for (Rect rectangle: array) {
+                X.add(rectangle.x1);
+                Y.add(rectangle.y1);
+                X.add(rectangle.x2);
+                Y.add(rectangle.y2);
+            }
+        } else { // for contest
+            n = sc.nextInt();
+            this.array = new Rect[n];
+            this.trees = new Node[n * 2];
             for (int i = 0; i < n; i++) {
                 int x1 = sc.nextInt();
                 int y1 = sc.nextInt();
@@ -81,8 +92,6 @@ public class PersistentSegmentTree{
                 Rect rectangle = new Rect(x1, y1, x2, y2);
                 this.array[i] = rectangle;
             }
-        } catch (Exception e){
-            System.out.println("Incorrect data");
         }
 
         intX = new int[X.size()];
@@ -161,20 +170,38 @@ public class PersistentSegmentTree{
         return new Node(AddNode(previous_node.left, value, start, end), AddNode(previous_node.right, value, start, end), previous_node.value, previous_node.l_index, previous_node.r_index);
     }
 
-    void CheckPoints(){
-        int m = sc.nextInt();
-        for (int i = 0; i < m; i++) {
-            int x_ = sc.nextInt();
-            int x = BinaryIndexSearch(intX, x_);
-            int y_ = sc.nextInt();
-            int y = BinaryIndexSearch(intY, y_);
-            if (array.length == 0){
-                System.out.print("0 ");
-            } else {
-                if (x_ < intX[0] || y_ < intY[0] || x_ > intX[intX.length - 1] || y_ > intY[intY.length - 1]) {
+    void CheckPoints(int[] points){
+        if (points != null) { // for tests
+            for (int i = 0; i < (points.length) - 1; i += 2) {
+                int x_ = points[i];
+                int x = BinaryIndexSearch(intX, x_);
+                int y_ = points[i+1];
+                int y = BinaryIndexSearch(intY, y_);
+                if (array.length == 0) {
                     System.out.print("0 ");
                 } else {
-                    System.out.print(Summa(y, trees[x]) + " ");
+                    if (x_ < intX[0] || y_ < intY[0] || x_ > intX[intX.length - 1] || y_ > intY[intY.length - 1]) {
+                        System.out.print("0 ");
+                    } else {
+                        System.out.print(Summa(y, trees[x]) + " ");
+                    }
+                }
+            }
+        } else { // for contest
+            int m = sc.nextInt();
+            for (int i = 0; i < m; i++) {
+                int x_ = sc.nextInt();
+                int x = BinaryIndexSearch(intX, x_);
+                int y_ = sc.nextInt();
+                int y = BinaryIndexSearch(intY, y_);
+                if (array.length == 0) {
+                    System.out.print("0 ");
+                } else {
+                    if (x_ < intX[0] || y_ < intY[0] || x_ > intX[intX.length - 1] || y_ > intY[intY.length - 1]) {
+                        System.out.print("0 ");
+                    } else {
+                        System.out.print(Summa(y, trees[x]) + " ");
+                    }
                 }
             }
         }

@@ -1,6 +1,9 @@
+package src;
+
 import java.util.Scanner;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import src.Main.Rect;
 
 public class WithMap {
     public Scanner sc = new Scanner(System.in);
@@ -16,13 +19,18 @@ public class WithMap {
 
     private int[][] map;
 
-    record Rect(int x1, int y1, int x2, int y2) {
-    }
-
-    void CoordinateCompression(){
-        int n = sc.nextInt();
-        this.array = new Rect[n];
-        try {
+    void CoordinateCompression(Rect[] rects){
+        if (rects != null){ // for tests
+            this.array = rects;
+            for (Rect rectangle: array) {
+                X.add(rectangle.x1);
+                Y.add(rectangle.y1);
+                X.add(rectangle.x2);
+                Y.add(rectangle.y2);
+            }
+        } else { // for contest
+            int n = sc.nextInt();
+            this.array = new Rect[n];
             for (int i = 0; i < n; i++) {
                 int x1 = sc.nextInt();
                 int y1 = sc.nextInt();
@@ -35,8 +43,6 @@ public class WithMap {
                 Rect rectangle = new Rect(x1, y1, x2, y2);
                 this.array[i] = rectangle;
             }
-        } catch (Exception e){
-            System.out.println("Incorrect data");
         }
 
         intX = new int[X.size()];
@@ -83,20 +89,28 @@ public class WithMap {
         return down - 1;
     }
 
-    void CheckPoints(){
-        try {
-            int m = sc.nextInt();
-            for (int i = 0; i < m; i++) {
-                int x = BinaryIndexSearch(intX, sc.nextInt());
-                int y = BinaryIndexSearch(intY, sc.nextInt());
-                if (x == -1 || y == -1){
+    void CheckPoints(int[] points){
+        if (points != null){ // for tests
+            for (int i = 0; i < (points.length / 2) - 1; i += 2) {
+                int x = BinaryIndexSearch(intX, points[i]);
+                int y = BinaryIndexSearch(intY, points[i+1]);
+                if (x == -1 || y == -1) {
                     System.out.print("0 ");
                 } else {
                     System.out.print(map[x][y] + " ");
                 }
             }
-        } catch (Exception e) {
-            System.out.println("Incorrect data");
+        } else { // for contest
+            int m = sc.nextInt();
+            for (int i = 0; i < m; i++) {
+                int x = BinaryIndexSearch(intX, sc.nextInt());
+                int y = BinaryIndexSearch(intY, sc.nextInt());
+                if (x == -1 || y == -1) {
+                    System.out.print("0 ");
+                } else {
+                    System.out.print(map[x][y] + " ");
+                }
+            }
         }
     }
 }
