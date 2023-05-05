@@ -172,7 +172,7 @@ public class PersistentSegmentTree{
 
     void CheckPoints(int[] points){
         if (points != null) { // for tests
-            for (int i = 0; i < (points.length) - 1; i += 2) {
+            for (int i = 0; i < points.length - 1; i += 2) {
                 int x_ = points[i];
                 int x = BinaryIndexSearch(intX, x_);
                 int y_ = points[i+1];

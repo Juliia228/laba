@@ -11,9 +11,10 @@ public class TestData {
         return array;
     }
 
-    public static int[] CreatePointsArray(int n, int m){
+    public static int[] CreatePointsArray(int n){
+        int m = 100000;
         int[] array = new int[m * 2];
-        for (int i = 0; i < (m * 2) - 1; i += 2){
+        for (int i = 0; i < m * 2; i += 2){
             array[i] = (int) Math.pow(2003 * i, 31) % (20 * n); // x
             array[i+1] = (int) Math.pow(3001 * i, 31) % (20 * n); // y
         }

@@ -91,7 +91,7 @@ public class WithMap {
 
     void CheckPoints(int[] points){
         if (points != null){ // for tests
-            for (int i = 0; i < (points.length / 2) - 1; i += 2) {
+            for (int i = 0; i < points.length - 1; i += 2) {
                 int x = BinaryIndexSearch(intX, points[i]);
                 int y = BinaryIndexSearch(intY, points[i+1]);
                 if (x == -1 || y == -1) {

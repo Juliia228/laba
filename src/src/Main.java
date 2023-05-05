@@ -5,24 +5,24 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        //  for tests:
-        WriteToFile("prep_time.xlsx", "n,Brute Force,Map,Persistent Tree\n");
-        WriteToFile("get_answer_time.xlsx", "n,BruteForce,Map,PersistentTree\n");
-        WriteToFile("algo_time.xlsx", "n,Brute Force,Map,Persistent Tree\n");
+        // for tests:
+        WriteToFile("prep_time.xlsx", "n,Brute Force,Map,Persistent Segment Tree\n");
+        WriteToFile("get_answer_time.xlsx", "n,Brute Force,Map,Persistent Segment Tree\n");
+        WriteToFile("algo_time.xlsx", "n,Brute Force,Map,Persistent Segment Tree\n");
         int n = 1;
         for (int i = 1; i <= 13; i++){
             Rect[] rects = TestData.CreateRectanglesArray(n);
-            int[] points = TestData.CreatePointsArray(n, 10000);
+            int[] points = TestData.CreatePointsArray(n);
 
             // the first algorithm - brute-force
             BruteForce solution1 = new BruteForce();
             solution1.GetPoints(rects);
-            WriteToFile("prep_time.xlsx", i + ",0,");
+            WriteToFile("prep_time.xlsx", n + ",0,");
             long begin_time = System.nanoTime();
             solution1.CheckPoints(points);
             long end_time = System.nanoTime();
-            WriteToFile("get_answer_time.xlsx", i + "," + Long.toString(end_time - begin_time)+  ",");
-            WriteToFile("algo_time.xlsx", i + "," + Long.toString(end_time - begin_time) +  ",");
+            WriteToFile("get_answer_time.xlsx", n + "," + Long.toString(end_time - begin_time)+  ",");
+            WriteToFile("algo_time.xlsx", n + "," + Long.toString(end_time - begin_time) +  ",");
 
             // the second algorithm - map on compressed coordinates
             WithMap solution2 = new WithMap();
@@ -54,7 +54,7 @@ public class Main {
             n *= 2;
         }
 
-        //  for contest:
+        // for contest:
         // the first algorithm - brute-force
 //        BruteForce solution = new BruteForce();
 //        solution.GetPoints(null);

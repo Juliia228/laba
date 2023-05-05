@@ -34,7 +34,7 @@ public class BruteForce{
     void CheckPoints(int[] points){
         if (points != null){ // for tests
             setM(points.length / 2);
-            for (int i = 0; i < (this.m * 2) - 1; i += 2) {
+            for (int i = 0; i < points.length; i += 2) {
                 System.out.print(Check(points[i], points[i+1]) + " ");
             }
         } else { // for contest
